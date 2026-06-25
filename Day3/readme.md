@@ -1,157 +1,287 @@
-1)Employee Bonus Eligibility Checker
-   Problem Statement:
+1.import java.util.Scanner;
 
-A company gives bonus based on the following conditions:
+public class BonusChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-Employee must have worked for more than 3 years
-AND attendance percentage should be above 85
-If performance rating is:
-5 → Bonus = ₹50,000
-4 → Bonus = ₹30,000
-3 → Bonus = ₹10,000
-Otherwise no bonus.
+        // Input section
+        System.out.print("Enter years of experience: ");
+        double years = scanner.nextDouble();
 
-But there’s a twist:
+        System.out.print("Enter attendance percentage: ");
+        double attendance = scanner.nextDouble();
 
-If the employee has attendance below 60%, bonus should be rejected immediately even if all other conditions are satisfied.
-Input:
-Years of experience
-Attendance %
-Performance rating
-Output:
+        System.out.print("Enter performance rating (1-5): ");
+        int rating = scanner.nextInt();
 
-Display:
+        // Evaluation logic
+        if (attendance < 60) {
+            System.out.println("Not Eligible");
+            System.out.println("Bonus Amount: ₹0 (Reason: Attendance below 60%)");
+        } else if (years > 3 && attendance > 85) {
+            int bonus = 0;
 
-Eligible / Not Eligible
-Bonus amount if eligible
+            switch (rating) {
+                case 5:
+                    bonus = 50000;
+                    break;
+                case 4:
+                    bonus = 30000;
+                    break;
+                case 3:
+                    bonus = 10000;
+                    break;
+                default:
+                    bonus = 0;
+                    break;
+            }
 
+            if (bonus > 0) {
+                System.out.println("Eligible");
+                System.out.println("Bonus Amount: ₹" + bonus);
+            } else {
+                System.out.println("Not Eligible");
+                System.out.println("Bonus Amount: ₹0 (Reason: Performance rating too low)");
+            }
+        } else {
+            System.out.println("Not Eligible");
+            System.out.println("Bonus Amount: ₹0 (Reason: Did not meet experience or attendance criteria)");
+        }
 
+        scanner.close();
+    }
+2.import java.util.Scanner;
 
-2)Smart Login System
-Problem Statement:
+public class SmartLogin {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        String correctUsername = "admin";
+        String correctPassword = "Java@123";
+        int attempts = 0;
 
-Create a login system with:
+        while (attempts < 3) {
+            System.out.print("Enter Username: ");
+            String username = scanner.next();
 
-Username
-Password
-OTP
+            System.out.print("Enter Password: ");
+            String password = scanner.next();
 
-Conditions:
+            if (username.equals(correctUsername) && password.equals(correctPassword)) {
+                // Username and password correct, check OTP
+                System.out.print("Enter 4-digit OTP: ");
+                int otp = scanner.nextInt();
 
-Username must be "admin"
-Password must be "Java@123"
-If username/password correct:
+                if (otp >= 1000 && otp <= 9999) {
+                    System.out.println("Login Successful!");
+                } else {
+                    System.out.println("Invalid OTP. Login Failed.");
+                }
+                break; // Break the while loop since credentials were correct
+            } else {
+                attempts++;
+                System.out.println("Incorrect credentials.");
 
-Ask for OTP
-OTP valid only if between 1000 and 9999
+                // Extra twist hint checking
+                if (username.equals(correctUsername) && password.startsWith("Java") && password.endsWith("123")) {
+                    System.out.println("Almost correct password");
+                }
 
-Twist:
+                if (attempts == 3) {
+                    System.out.println("Account Blocked");
+                }
+            }
+        }
 
-If password is wrong 3 times, print:
-"Account Blocked"
+        scanner.close();
+    }
+3.import java.util.Scanner;
 
-Extra twist:
+public class ElectricityBill {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-If username is correct but password starts with "Java" and ends with "123" but still incorrect, print:
-"Almost correct password"
+        System.out.println("--- Electricity Bill Generator ---");
+        System.out.println("1. Domestic");
+        System.out.println("2. Commercial");
+        System.out.println("3. Industrial");
+        System.out.print("Select connection type (Enter 1, 2, or 3): ");
+        int choice = scanner.nextInt();
 
+        double bill = 0.0;
 
+        if (choice == 1 || choice == 2 || choice == 3) {
+            System.out.print("Enter units consumed: ");
+            double units = scanner.nextDouble();
 
+            if (choice == 1) { // Domestic
+                if (units <= 100) {
+                    bill = 0;
+                } else if (units <= 300) {
+                    bill = (units - 100) * 5;
+                } else {
+                    bill = (200 * 5) + ((units - 300) * 8);
+                }
+            } else if (choice == 2) { // Commercial
+                if (units < 200) {
+                    bill = units * 10;
+                } else {
+                    bill = units * 15;
+                }
+            } else { // Industrial
+                System.out.print("Is power factor good? (yes/no): ");
+                String pfInput = scanner.next().trim().toLowerCase();
+                
+                double baseCharge = units * 20;
+                if (units > 500 && pfInput.equals("yes")) {
+                    bill = baseCharge * 0.90; // 10% discount applied
+                } else {
+                    bill = baseCharge;
+                }
+            }
 
-3)Electricity Bill Generator
-Problem Statement:
+            System.out.printf("Total Electricity Bill: ₹%.2f\n", bill);
+        } else {
+            System.out.println("Invalid Connection Type");
+        }
 
-Create a menu-driven electricity billing system.
+        scanner.close();
+    }
+4.import java.util.Scanner;
 
-Menu:
-Domestic
-Commercial
-Industrial
+public class AdmissionPredictor {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-Take units consumed.
+        // Input section
+        System.out.print("Enter Maths marks: ");
+        double maths = scanner.nextDouble();
 
-Conditions:
-Domestic:
-First 100 units → free
-101–300 → ₹5/unit
-Above 300 → ₹8/unit
-Commercial:
-Below 200 → ₹10/unit
-Above 200 → ₹15/unit
-Industrial:
-If units > 500 AND power factor good:
-10% discount
-Otherwise normal charge ₹20/unit
-Twist:
-If invalid menu entered:
+        System.out.print("Enter Physics marks: ");
+        double physics = scanner.nextDouble();
 
-print "Invalid Connection Type"
+        System.out.print("Enter Chemistry marks: ");
+        double chemistry = scanner.nextDouble();
 
-4)College Admission Predictor
+        double totalAverage = (maths + physics + chemistry) / 3.0;
 
-Problem Statement:
+        // Logic evaluation
+        if (maths < 35 || physics < 35 || chemistry < 35) {
+            System.out.println("Admission Status: Automatically Rejected (Failed in one or more subjects)");
+            System.out.println("Scholarship Status: Not Eligible");
+        } else {
+            // Check general admission criteria
+            boolean criteria1 = (maths >= 70 && physics >= 60 && chemistry >= 60);
+            boolean criteria2 = (totalAverage >= 80);
 
-A student is eligible for admission only if:
+            if (criteria1 || criteria2) {
+                System.out.println("Admission Status: Eligible");
 
-Maths >= 70
-Physics >= 60
-Chemistry >= 60
+                // Extra twist for scholarship
+                if (maths > 90 && physics > 90 && chemistry > 90) {
+                    System.out.println("Scholarship Status: Eligible for Scholarship");
+                } else {
+                    System.out.println("Scholarship Status: Not Eligible for Scholarship");
+                }
+            } else {
+                System.out.println("Admission Status: Not Eligible (Criteria not met)");
+                System.out.println("Scholarship Status: Not Eligible");
+            }
+        }
 
-OR
+        scanner.close();
+    }
+5.import java.util.Scanner;
 
-Total average >= 80
+public class RestaurantSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-But:
+        System.out.println("--- Main Menu ---");
+        System.out.println("1. Veg");
+        System.out.println("2. Non-Veg");
+        System.out.print("Select Category (1 or 2): ");
+        int mainChoice = scanner.nextInt();
 
-If any subject mark is below 35 → Automatically rejected.
+        String itemName = "";
+        double itemPrice = 0.0;
+        boolean validSelection = true;
 
-Extra twist:
+        if (mainChoice == 1) { // Veg Menu
+            System.out.println("\n--- Veg Menu ---");
+            System.out.println("1. Fried Rice - ₹150");
+            System.out.println("2. Noodles - ₹120");
+            System.out.print("Select Item (1 or 2): ");
+            int itemChoice = scanner.nextInt();
 
-If all three subjects are above 90:
-"Eligible for Scholarship"
-Input:
-Maths
-Physics
-Chemistry
-Output:
-Admission status
-Scholarship status
+            if (itemChoice == 1) {
+                itemName = "Fried Rice";
+                itemPrice = 150;
+            } else if (itemChoice == 2) {
+                itemName = "Noodles";
+                itemPrice = 120;
+            } else {
+                validSelection = false;
+            }
 
+        } else if (mainChoice == 2) { // Non-Veg Menu
+            System.out.println("\n--- Non-Veg Menu ---");
+            System.out.println("1. Chicken Biryani - ₹250");
+            System.out.println("2. Grill Chicken - ₹300");
+            System.out.print("Select Item (1 or 2): ");
+            int itemChoice = scanner.nextInt();
 
+            if (itemChoice == 1) {
+                itemName = "Chicken Biryani";
+                itemPrice = 250;
+            } else if (itemChoice == 2) {
+                itemName = "Grill Chicken";
+                itemPrice = 300;
+            } else {
+                validSelection = false;
+            }
+        } else {
+            validSelection = false;
+        }
 
+        // Process order details if the selection was valid
+        if (validSelection) {
+            System.out.print("Enter quantity: ");
+            int quantity = scanner.nextInt();
 
-5)Restaurant Ordering System (Advanced Menu Driven)
+            System.out.print("Enter Member status (Gold/Silver/Normal): ");
+            String membership = scanner.next().trim();
 
-Problem Statement:
+            double baseBill = itemPrice * quantity;
+            double discount = 0.0;
 
-Create a restaurant ordering system.
+            // Handle membership case insensitively
+            if (membership.equalsIgnoreCase("Gold")) {
+                discount = 0.20;
+            } else if (membership.equalsIgnoreCase("Silver")) {
+                discount = 0.10;
+            } else if (membership.equalsIgnoreCase("Normal")) {
+                discount = 0.0;
+            } else {
+                System.out.println("Unknown membership type. Applied 'Normal' status processing.");
+            }
 
-Main Menu:
-Veg
-Non-Veg
-Veg Menu:
-1 → Fried Rice
-2 → Noodles
-Non-Veg Menu:
-1 → Chicken Biryani
-2 → Grill Chicken
+            double finalBill = baseBill * (1 - discount);
 
-Take:
+            System.out.println("\n--- Receipt ---");
+            System.out.println("Ordered: " + itemName + " x " + quantity);
+            System.out.println("Subtotal: ₹" + baseBill);
+            System.out.printf("Final Bill (After Discount): ₹%.2f\n", finalBill);
 
-Quantity
-Member status (Gold/Silver/Normal)
-Discount Rules:
-Gold → 20%
-Silver → 10%
-Normal → No discount
+            // Twist: Free dessert check
+            if (finalBill > 2000 && membership.equalsIgnoreCase("Gold")) {
+                System.out.println("🎉 Congratulations! You win a free dessert! 🎉");
+            }
+        } else {
+            System.out.println("Invalid Selection");
+        }
 
-Twist:
-
-If bill > ₹2000 AND customer is Gold:
-Give free dessert message.
-
-Extra Twist:
-
-Invalid menu choices should print:
-"Invalid Selection"
+        scanner.close();
+    }
+}
 
