@@ -1,69 +1,135 @@
-1)Online Shopping Bill Generator
+1)import java.util.Scanner;
 
-Create a Java program that:
+public class ShoppingBillGenerator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-Takes customer name
-Takes product name
-Takes product price
-Takes quantity
-Calculate:
-Total bill amount
-Output Example:
-Customer Name: John
-Product: Headphones
-Price: 1500
-Quantity: 2
-Total Bill: 3000
+        // Taking inputs
+        System.out.print("Enter Customer Name: ");
+        String customerName = scanner.nextLine();
 
-2)Student Result Analyzer
+        System.out.print("Enter Product Name: ");
+        String productName = scanner.nextLine();
 
-Create a Java program that:
+        System.out.print("Enter Product Price: ");
+        double price = scanner.nextDouble();
 
-Takes student name
-Takes marks of 3 subjects
-Calculate:
-Total marks
-Average marks
-Bonus:
+        System.out.print("Enter Quantity: ");
+        int quantity = scanner.nextInt();
 
-Print whether average is greater than 50 using comparison operator.
+        // Calculation
+        double totalBill = price * quantity;
 
-3)Travel Expense Estimator
+        // Output Display
+        System.out.println("\n--- Invoice ---");
+        System.out.println("Customer Name: " + customerName);
+        System.out.println("Product: " + productName);
+        System.out.println("Price: " + price);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Total Bill: " + totalBill);
 
-Create a Java program that takes:
+        scanner.close();
+    }
+}
+2. import java.util.Scanner;
 
-Travel distance (in KM)
-Petrol price per liter
-Vehicle mileage
-Calculate:
-Petrol needed
-Total travel cost
+public class StudentResultAnalyzer {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-Hint:
+        // Taking inputs
+        System.out.print("Enter Student Name: ");
+        String studentName = scanner.nextLine();
 
-Use division and multiplication operators.
+        System.out.print("Enter Marks for Subject 1: ");
+        double sub1 = scanner.nextDouble();
 
-4)ATM Information System
+        System.out.print("Enter Marks for Subject 2: ");
+        double sub2 = scanner.nextDouble();
 
-Create a Java program that:
+        System.out.print("Enter Marks for Subject 3: ");
+        double sub3 = scanner.nextDouble();
 
-Takes account holder name
-Account balance
-Withdrawal amount
-Calculate:
-Remaining balance
-Bonus:
+        // Calculations
+        double totalMarks = sub1 + sub2 + sub3;
+        double averageMarks = totalMarks / 3.0;
 
-Use comparison operator to check:
-balance > withdrawal
+        // Output Display
+        System.out.println("\n--- Result Analysis ---");
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.println("Average Marks: " + averageMarks);
 
-------Submission Instructions-------
-Day2- Create folder
-Upload all .java files in your own GitHub repository
-Share GitHub repo link in zoom group 
-Important
+        // Bonus: Comparison check
+        boolean isPass = averageMarks > 50;
+        System.out.println("Is Average greater than 50?: " + isPass);
 
-These problems are designed to improve your thinking ability.
-Don’t search directly for answers — break problem into steps and solve patiently
+        scanner.close();
+    }
+}
+3.import java.util.Scanner;
+
+public class TravelExpenseEstimator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Taking inputs
+        System.out.print("Enter travel distance (in KM): ");
+        double distance = scanner.nextDouble();
+
+        System.out.print("Enter petrol price per liter: ");
+        double petrolPrice = scanner.nextDouble();
+
+        System.out.print("Enter vehicle mileage (KM per liter): ");
+        double mileage = scanner.nextDouble();
+
+        // Calculations
+        double petrolNeeded = distance / mileage;
+        double totalTravelCost = petrolNeeded * petrolPrice;
+
+        // Output Display
+        System.out.println("\n--- Travel Estimate ---");
+        System.out.printf("Petrol Needed: %.2f Liters\n", petrolNeeded);
+        System.out.printf("Total Travel Cost: ₹%.2f\n", totalTravelCost);
+
+        scanner.close();
+    }
+}
+4.import java.util.Scanner;
+
+public class AtmSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Taking inputs
+        System.out.print("Enter Account Holder Name: ");
+        String accountHolder = scanner.nextLine();
+
+        System.out.print("Enter Account Balance: ");
+        double balance = scanner.nextDouble();
+
+        System.out.print("Enter Withdrawal Amount: ");
+        double withdrawalAmount = scanner.nextDouble();
+
+        // Bonus Check: Check if balance is sufficient using comparison operator
+        boolean hasSufficientFunds = balance >= withdrawalAmount;
+
+        System.out.println("\n--- ATM Transaction Summary ---");
+        System.out.println("Account Holder: " + accountHolder);
+        System.out.println("Is balance sufficient for withdrawal?: " + hasSufficientFunds);
+
+        // Calculation & Output based on fund availability
+        if (hasSufficientFunds) {
+            double remainingBalance = balance - withdrawalAmount;
+            System.out.println("Withdrawal Successful!");
+            System.out.println("Remaining Balance: " + remainingBalance);
+        } else {
+            System.out.println("Transaction Denied: Insufficient Funds.");
+            System.out.println("Current Balance remains: " + balance);
+        }
+
+        scanner.close();
+    }
+}
 
 
